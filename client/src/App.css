@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  display: flex;
+  list-style: none;
+  gap: 10vw;
+  padding-top: 2vh;
+}
+#container {
+  width: 60vw;
+  height: 60vh;
+  padding-top: 10vh;
+  padding-left: 35vw;
+}
+#form {
+  width: 30vw;
+  height: 50vh;
+  background-color: lightblue;
+  color: aliceblue;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border-top-right-radius: 100px;
+  border: double 10px aliceblue;
+  padding-top: 20vh;
+  box-shadow: 10px 10px 20px blue;
+}
