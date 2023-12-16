@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
-const jwt = require("jsonwebtoken");
+
 const saltRounds = 10;
 const port = process.env.PORT;
 const app = express();
@@ -18,15 +18,9 @@ async function hashPassword(password) {
   return await bcrypt.hash(password, salt);
 }
 
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("database up");
-  });
+mongoose.connect(process.env.MONGO_URL, {}).then(() => {
+  console.log("database up");
+});
 
 async function comparePassword(password, hashedPassword) {
   return await bcrypt.compare(password, hashedPassword);
@@ -63,26 +57,21 @@ app.post("/login", async (req, res) => {
   const user = await User.findOne({
     username,
   });
+
   if (!username || !password) {
     res.status(404).json({ status: "error", error: "Invalid Credentials!" });
   } else {
+    if (user == null) {
+      res.status(404).json({ status: "error", error: "Invalid Credentials!" });
+    }
     const isUser = await comparePassword(password, user.password);
-    if (isUser) {
-      let jwtSecretKey = process.env.JWT_SECRET_KEY;
-      let data = {
-        time: Date(),
-        userId: 12,
-      };
-      const token = jwt.sign(data, jwtSecretKey);
-      const verified = jwt.verify(token, jwtSecretKey);
 
-      if (verified) {
-        res.status(200).json({ status: "ok" });
-      } else {
-        res.status(404).json({ status: "error", error: "Invalid Session" });
-      }
+    if (isUser) {
+      res.status(200).json({ status: "ok" });
+    } else if (isUser === null) {
+      res.status(404).json({ status: "error", error: "Invalid Credentials!" });
     } else {
-      res.status(404).json({ status: "error", error: "No User Found" });
+      res.status(404).json({ status: "error", error: "Invalid Credentials!" });
     }
   }
 });

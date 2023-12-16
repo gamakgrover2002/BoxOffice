@@ -60,7 +60,7 @@ function Login() {
         </button>
         <br />
         {response}
-        <Link to="/">GLogin</Link>
+        <Link to="/">Go to Login</Link>
         <br />
       </div>
     </div>

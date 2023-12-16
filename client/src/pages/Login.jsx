@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 function Login() {
   const [username, Setusername] = useState('');
   const [password, Setpassword] = useState('');
+
   const navigate = useNavigate();
   const getusername = e => {
     Setusername(e.target.value);
@@ -24,7 +25,11 @@ function Login() {
         }),
       }).then(res => res.json());
       console.log(res);
-      navigate('/home');
+      if (res.status == 'error') {
+        alert('invalid details');
+      } else {
+        navigate(`/home/${username}`);
+      }
     } catch (err) {
       console.log(err);
     }

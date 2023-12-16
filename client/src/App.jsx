@@ -17,7 +17,7 @@ function App() {
         <HashRouter>
           <Routes>
             <Route element={<MainLayout />}>
-              <Route path="/home" element={<Home />} />
+              <Route path="/home/:username" element={<Home />} />
               <Route path="/starred" element={<Starred />} />
             </Route>
             <Route path="/" element={<Login />} />

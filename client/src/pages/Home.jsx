@@ -5,10 +5,13 @@ import SearchForm from '../components/SearchForm';
 import ShowGrid from '../components/shows/ShowGrid';
 import ActorsGrid from '../components/actors/ActorsGrid';
 import { TextCenter } from '../components/common/TextCenter';
+import { useParams } from 'react-router-dom';
 
 const Home = () => {
   const [filter, setFilter] = useState(null);
 
+  const { username } = useParams();
+  console.log(username);
   const { data: apiData, error: apiDataError } = useQuery({
     queryKey: ['search', filter],
     queryFn: () =>

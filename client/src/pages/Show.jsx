@@ -24,7 +24,7 @@ const Show = () => {
     return (
       <ShowPageWrapper>
         <BackHomeWrapper>
-          <Link to="/">Go back to home</Link>
+          <Link to="/home">Go back to home</Link>
         </BackHomeWrapper>
 
         <ShowMainData
